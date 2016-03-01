@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityLogger", "ActivityLogger\ActivityLogger.csproj", "{CEE76518-FBDF-45C1-9911-E19EBBA0F4F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityLogger.Tests", "ActivityLogger.Tests\ActivityLogger.Tests.csproj", "{4E99FEA0-9DDE-4755-8D4E-BAFFE20D08CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{0AE0A2F1-5461-421E-87BF-39816D9BFF23}"
+	ProjectSection(SolutionItems) = preProject
+		ActivityLogger\ActivityLogger.nuspec = ActivityLogger\ActivityLogger.nuspec
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEE76518-FBDF-45C1-9911-E19EBBA0F4F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEE76518-FBDF-45C1-9911-E19EBBA0F4F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEE76518-FBDF-45C1-9911-E19EBBA0F4F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEE76518-FBDF-45C1-9911-E19EBBA0F4F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E99FEA0-9DDE-4755-8D4E-BAFFE20D08CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E99FEA0-9DDE-4755-8D4E-BAFFE20D08CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E99FEA0-9DDE-4755-8D4E-BAFFE20D08CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E99FEA0-9DDE-4755-8D4E-BAFFE20D08CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
