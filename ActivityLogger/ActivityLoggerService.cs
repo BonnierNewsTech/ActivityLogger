@@ -19,12 +19,9 @@ namespace ActivityLogger
         private readonly Timer _sendTimer;
         public IEnumerable<IDatapoint> Datapoints => _datapoints;
         public IEnumerable<IDatapoint> Sending => _sending.SelectMany(x => x.ToArray());
-        private SemaphoreSlim _sendingItems;
-        public WaitHandle HaveRunningTasks => _sendingItems.AvailableWaitHandle;
 
-        public ActivityLoggerService(IInfluxDBClient client, int bufferSize, TimeSpan sendEvery, string dbName, int threads)
+        public ActivityLoggerService(IInfluxDBClient client, int bufferSize, TimeSpan sendEvery, string dbName)
         {
-            _sendingItems = new SemaphoreSlim(threads);
             _client = client;
             _bufferSize = bufferSize;
             _sendEvery = sendEvery;
@@ -75,22 +72,27 @@ namespace ActivityLogger
             List<IDatapoint> itemsToSend;
             if (_sending.TryDequeue(out itemsToSend))
             {
-                _sendingItems.Wait();
                 var dispatcher = new DataPointDispatcher(_client, _dbName, itemsToSend);
-                dispatcher.Send((success, datapoints) =>
+                try
                 {
-                    if (!success)
+                    dispatcher.Send((success, datapoints) =>
                     {
-                        _sending.Enqueue(datapoints.ToList());
-                        _currentSendEvery = _currentSendEvery.Add(_currentSendEvery);
-                    }
-                    else
-                    {
-                        _currentSendEvery = _sendEvery;
-                    }
-                    _sendTimer.Change(TimeSpan.Zero, _currentSendEvery);
-                    _sendingItems.Release();
-                });
+                        if (!success)
+                        {
+                            _sending.Enqueue(datapoints.ToList());
+                            _currentSendEvery = _currentSendEvery.Add(_currentSendEvery);
+                        }
+                        else
+                        {
+                            _currentSendEvery = _sendEvery;
+                        }
+                        _sendTimer.Change(TimeSpan.Zero, _currentSendEvery);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    _currentSendEvery = _currentSendEvery.Add(_currentSendEvery);
+                }
             }
         }
 
@@ -99,9 +101,7 @@ namespace ActivityLogger
             if (_datapoints != null && !_datapoints.IsEmpty)
             {
                 SendWaitingItems();
-                HaveRunningTasks?.WaitOne(2000);
             }
-
             _sendTimer.Dispose();
         }
     }

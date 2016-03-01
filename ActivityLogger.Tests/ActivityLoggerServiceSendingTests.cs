@@ -12,7 +12,7 @@ namespace ActivityLogger.Tests
         public ActivityLoggerServiceSendingTests()
         {
             _mock = new InfluxFailureClientMock();
-            _service = new ActivityLoggerService(_mock, 5, TimeSpan.FromMilliseconds(1000), "dbname", 1);
+            _service = new ActivityLoggerService(_mock, 5, TimeSpan.FromMilliseconds(1000), "dbname");
         }
 
         [Fact]

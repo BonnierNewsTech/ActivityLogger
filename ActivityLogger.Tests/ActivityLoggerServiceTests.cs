@@ -14,7 +14,7 @@ namespace ActivityLogger.Tests
         public ActivityLoggerServiceTests()
         {
             _mock = new InfluxClientMock();
-            _service = new ActivityLoggerService(_mock, 5, TimeSpan.FromMilliseconds(200), "dbname", 1);
+            _service = new ActivityLoggerService(_mock, 5, TimeSpan.FromMilliseconds(200), "dbname");
         }
 
         [Fact]
@@ -55,8 +55,6 @@ namespace ActivityLogger.Tests
             _service.Add(CreateDatapoint());
             _service.Add(CreateDatapoint());
 
-            _service.HaveRunningTasks?.WaitOne();
-
             Assert.Equal(5, _mock.SentItems);
         }
 
@@ -68,7 +66,6 @@ namespace ActivityLogger.Tests
             _service.Add(CreateDatapoint());
             _service.Add(CreateDatapoint());
             _service.Add(CreateDatapoint());
-            _service.HaveRunningTasks?.WaitOne();
             Assert.Equal(0, _service.Sending.Count());
         }
 
@@ -79,7 +76,6 @@ namespace ActivityLogger.Tests
             _service.Add(CreateDatapoint());
             _service.Add(CreateDatapoint());
             Thread.Sleep(500);
-            _service.HaveRunningTasks?.WaitOne();
             Assert.Equal(0, _service.Datapoints.Count());
             Assert.Equal(0, _service.Sending.Count());
         }
