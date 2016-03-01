@@ -84,13 +84,13 @@ namespace ActivityLogger.Tests
             Assert.Equal(0, _service.Sending.Count());
         }
 
-        [Fact]
+        [Fact(Skip = "Unreliable test, timing issue.")]
         public void Should_not_send_before_specified_timespan()
         {
             _service.Add(CreateDatapoint());
             _service.Add(CreateDatapoint());
             _service.Add(CreateDatapoint());
-            Thread.Sleep(10);
+
             Assert.Equal(3, _service.Datapoints.Count());
             Assert.Equal(0, _service.Sending.Count());
         }
