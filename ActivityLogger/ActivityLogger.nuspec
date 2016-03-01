@@ -6,12 +6,12 @@
         <title>ActivityLogger</title>
         <authors>DI Konsument</authors>
         <owners>DI Konsument</owners>
-        <projectUrl>git@github.com:BonnierNewsTech/ActivityLogger.git</projectUrl>
+        <projectUrl>https://github.com/BonnierNewsTech/ActivityLogger.git</projectUrl>
         <description>Application service to handle logging</description>
         <copyright>Copyright 2016</copyright>
-        <dependencies>
-            <dependency id="AdysTech.InfluxDB.Client.Net" version="1.0.9" />
-        </dependencies>
+      <dependencies>
+        <dependency id="AdysTech.InfluxDB.Client.Net" version="1.0.9" />
+      </dependencies>
     </metadata>
     <files>
         <file src="bin\Release\ActivityLogger.*" target="lib\net45" />
